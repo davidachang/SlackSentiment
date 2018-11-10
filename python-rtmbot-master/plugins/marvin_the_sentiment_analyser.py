@@ -6,8 +6,7 @@ import traceback
 CONFIG = yaml.load(file("rtmbot.conf", "r"))
 
 ALGORITHMIA_CLIENT = Algorithmia.client(CONFIG["ALGORITHMIA_KEY"])
-#ALGORITHM = ALGORITHMIA_CLIENT.algo("nlp/SentimentAnalysis/0.1.2")
-ALGORITHM = ALGORITHMIA_CLIENT.algo('nlp/SocialSentimentAnalysis/0.1.3')
+ALGORITHM = ALGORITHMIA_CLIENT.algo('nlp/SocialSentimentAnalysis/0.1.4')
 
 outputs = []
 
@@ -56,6 +55,8 @@ def process_message(data):
         return display_current_mood(data.get("channel", None))
 
     # don't log the current mood reply!
+    ### can probably optimize this to not log any of the bot's chats... because this
+    ### also removes any sentence that just starts with Positive
     if text.startswith('Positive:'):
         return
 
@@ -95,7 +96,7 @@ def process_message(data):
             outputs.append([data["channel"], "Easy there, negative Nancy!"])
 
         # print to the console what just happened
-        print 'Comment "{}" was {}, compound result {}'.format(text, verdict, compound_result)
+        print 'Comment "{}" was {}, compound result: {}'.format(text, verdict, compound_result)
 
     except Exception as exception:
         # a few things can go wrong but the important thing is keep going
