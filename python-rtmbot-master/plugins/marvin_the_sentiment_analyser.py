@@ -54,11 +54,7 @@ def process_message(data):
         return display_current_mood(data.get("channel", None))
 
 
-    # don't log the current mood reply!
-    ### can probably optimize this to not log any of the bot's chats... because this
-    ### also removes any sentence that just starts with Positive
-    # if text.startswith('Positive:'):
-        # return
+    # don't log the bot replies!
     if data.get("subtype", "") == "bot_message":
         return
 
