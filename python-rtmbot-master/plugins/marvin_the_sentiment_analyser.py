@@ -28,7 +28,7 @@ my_file = {
 
 payload={
   "filename":"SentimentVisuals.png", 
-  "token":"xoxb-460537279170-471500328005-FY5reKb1zGhq3QoMo36IThqY", 
+  "token":"xoxb-460537279170-471500328005-jT7ReV8FtS1OPRvjAScLExOM", 
   "channels":['#fuckyouchat'], 
 }
 
