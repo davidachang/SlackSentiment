@@ -1,6 +1,42 @@
 import Algorithmia
 import yaml
 import traceback
+import seaborn as sb
+import os
+import requests 
+import matplotlib.pyplot as plt
+
+import seaborn as sns; sns.set(style="ticks", color_codes=True)
+iris = sns.load_dataset("iris")
+g = sns.pairplot(iris)
+g = sns.pairplot(iris, vars=["sepal_width", "sepal_length"])
+
+g.savefig("SentimentVisuals")
+
+# now let's output the visual file onto the slack channel using the files.upload
+
+
+curr_path = os.getcwd()
+
+new_path = curr_path + '/SentimentVisuals.png'
+
+print(new_path)
+
+my_file = {
+  'file' : (new_path, open(new_path, 'rb'), 'png')
+}
+
+payload={
+  "filename":"SentimentVisuals.png", 
+  "token":"xoxb-460537279170-471500328005-FY5reKb1zGhq3QoMo36IThqY", 
+  "channels":['#fuckyouchat'], 
+}
+
+r = requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
+
+
+# end of the addition
+
 
 CONFIG = yaml.load(file("rtmbot.conf", "r"))
 
@@ -21,7 +57,6 @@ sentiment_averages = {
     "positive": 0,
     "total": 0,
 }
-
 
 def display_current_mood(channel):
     reply = ""
@@ -53,10 +88,12 @@ def process_message(data):
     if "current mood?" in text:
         return display_current_mood(data.get("channel", None))
 
+    if "show graph?" in text:
+        print(g)
 
     # don't log the bot replies!
     if data.get("subtype", "") == "bot_message":
-        return
+        return outputGraphs("channel", None)
 
     try:
         sentence = {
