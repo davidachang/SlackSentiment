@@ -33,7 +33,7 @@ def outputGraph():
 
     payload={
     "filename":"SentimentVisuals.png", 
-    "token":"xoxb-460537279170-471500328005-p9NK9C9LOXIBNYUOyvRTWhdQ", 
+    "token":"xoxb-460537279170-471500328005-0qEhRYmuz6WFb9UfS5usq1Ng", 
     "channels":['#fuckyouchat'], 
     }
 
