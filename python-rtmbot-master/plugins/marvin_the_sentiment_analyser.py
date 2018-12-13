@@ -2,37 +2,42 @@ import Algorithmia
 import yaml
 import traceback
 import seaborn as sb
+import pandas as pd
+import numpy as np
+from io import BytesIO
 import os
 import requests 
 import matplotlib.pyplot as plt
-
 import seaborn as sns; sns.set(style="ticks", color_codes=True)
-iris = sns.load_dataset("iris")
-g = sns.pairplot(iris)
-g = sns.pairplot(iris, vars=["sepal_width", "sepal_length"])
 
-g.savefig("SentimentVisuals")
+def outputGraph():
+    labels = 'positive', 'neutral', 'negative'
+    values  = [sentiment_averages["positive"], sentiment_averages["neutral"], sentiment_averages["negative"]]
+    fig1 = plt.figure() 
+    values = np.asarray(values)
+    fig1, ax1 = plt.subplots()
+    ax1.pie(values, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90)
+    plt.title('Sentiment Analysis Graph')
 
-# now let's output the visual file onto the slack channel using the files.upload
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
+    fig1.savefig('SentimentVisuals.png')
 
-curr_path = os.getcwd()
+    curr_path = os.getcwd()
+    new_path = curr_path + '/SentimentVisuals.png'
 
-new_path = curr_path + '/SentimentVisuals.png'
+    my_file = {
+    'file' : (new_path, open(new_path, 'rb'), 'png')
+    }
 
-print(new_path)
+    payload={
+    "filename":"SentimentVisuals.png", 
+    "token":"xoxb-460537279170-471500328005-8r4xNNMNogHCFf8fmImOM712", 
+    "channels":['#fuckyouchat'], 
+    }
 
-my_file = {
-  'file' : (new_path, open(new_path, 'rb'), 'png')
-}
-
-payload={
-  "filename":"SentimentVisuals.png", 
-  "token":"xoxb-460537279170-471500328005-jT7ReV8FtS1OPRvjAScLExOM", 
-  "channels":['#fuckyouchat'], 
-}
-
-r = requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
+    r = requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
 
 
 # end of the addition
@@ -89,8 +94,9 @@ def process_message(data):
         return display_current_mood(data.get("channel", None))
 
     if "show graph?" in text:
-        print(g)
-
+        outputGraph()
+        return
+        
     # don't log the bot replies!
     if data.get("subtype", "") == "bot_message":
         return outputGraphs("channel", None)
