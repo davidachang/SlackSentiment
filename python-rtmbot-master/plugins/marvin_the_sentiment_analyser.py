@@ -10,6 +10,8 @@ import requests
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set(style="ticks", color_codes=True)
 
+with open("bad_list.txt") as f:
+    bad_list_array = f.read().splitlines()
 
 def outputGraph():
 
@@ -92,9 +94,16 @@ def process_message(data):
 
     # remove any odd encoding
     text = text.encode('utf-8')
+    words = text.split()
 
     if "current mood?" in text:
         return display_current_mood(data.get("channel", None))
+
+    if "bot function?" in text:
+        outputs.append([data["channel"], "this bot analyzes sentiments in the group"])
+    for i in range(len(words)):
+        if words[i] in bad_list_array:
+            outputs.append([data["channel"], "please refrain from using sensitive words!"])
 
     if "show graph?" in text:
         outputGraph()
