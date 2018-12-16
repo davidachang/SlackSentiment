@@ -10,7 +10,10 @@ import requests
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set(style="ticks", color_codes=True)
 
+
 def outputGraph():
+
+
     labels = 'positive', 'neutral', 'negative'
     values  = [sentiment_averages["positive"], sentiment_averages["neutral"], sentiment_averages["negative"]]
     fig1 = plt.figure() 
@@ -33,7 +36,7 @@ def outputGraph():
 
     payload={
     "filename":"SentimentVisuals.png", 
-    "token":"xoxb-460537279170-471500328005-0qEhRYmuz6WFb9UfS5usq1Ng", 
+    "token":CONFIG["SLACK_TOKEN"], 
     "channels":['#fuckyouchat'], 
     }
 
