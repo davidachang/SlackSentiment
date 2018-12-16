@@ -1,11 +1,15 @@
-# Marvin
-This project is named after the android from The Hitchhikers Guide to Galaxy. https://en.wikipedia.org/wiki/Marvin_(character).
-
 ## Purpose
-To track the mood of a Slack channel either in real time or historically. Using a sentiment analysis algorithm from https://algorithmia.com
-each comment is rated for it's general tone or sentiment.
+Our bot tracks the mood of your Slack channel in real time, and identifies for you where coworkers may not be particularly friendly. We are using a sentiment analysis algorithm from https://algorithmia.com, and each message's sentiment is rated according to that algorithm.
 
 # Setup
+
+First, clone the respository and enter it.
+```
+$ git clone <url>
+$ cd SlackSentiment
+```
+
+Set up the virtual environment and config file.
 ```
 virtualenv .
 source bin/activate
@@ -22,8 +26,15 @@ SLACK_TOKEN: "YOUR_SLACK_TOKEN"
 ALGORITHMIA_KEY: "YOUR_ALGORITHMIA_KEY"
 ```
 
+Enter the python-rtmbot-master directory and run the rtmbot.
+```
+$ cd python-rtmbot-master
+$ python rtmbot.py
+```
+Check your Slack channel, and your bot will appear online.
+
 # Usage
-Marvin uses the algorithm https://algorithmia.com/algorithms/nlp/SocialSentimentAnalysis to analyse a message in the Slack channel.
+
 The results from the analysis are in the form of:
 
 * Negative
@@ -31,6 +42,20 @@ The results from the analysis are in the form of:
 * Postitive
 
 For more detail check out the algorithm's page https://algorithmia.com/algorithms/nlp/SocialSentimentAnalysis.
+
+### Bot Commands
+Currently there is only a single command:
+
+```current mood?```
+
+This will display the current averages:
+
+```
+marvin BOT [7:45 PM]
+Positive: 20.0%
+Neutral: 60.0%
+Negative: 20.0%
+```
 
 ## Historical Analysis
 Provided in the ```historical``` directory is a script that will review the last 24 hours of your Slack channel.
@@ -54,29 +79,4 @@ $ python historical/channel_review.py -c C056STSWB
   %positive    %neutral    %negative
 -----------  ----------  -----------
          30          48           22
-```
-
-## Realtime Slack Channel Monitoring
-
-Inside the ```python-rtmbot-master``` directory is all the code need to run a Slack bot. To start the bot:
-
-```
-$ cd python-rtmbot-master
-$ python rtmbot.py
-```
-
-Check your Slack channel and your bot will appear online.
-
-### Bot Commands
-Currently there is only a single command:
-
-```current mood?```
-
-This will display the current averages:
-
-```
-marvin BOT [7:45 PM]
-Positive: 20.0%
-Neutral: 60.0%
-Negative: 20.0%
 ```
