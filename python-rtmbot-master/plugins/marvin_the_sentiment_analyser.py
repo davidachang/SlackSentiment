@@ -1,6 +1,48 @@
 import Algorithmia
 import yaml
 import traceback
+import seaborn as sb
+import pandas as pd
+import numpy as np
+from io import BytesIO
+import os
+import requests 
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set(style="ticks", color_codes=True)
+
+with open("bad_list.txt") as f:
+    bad_list_array = f.read().splitlines()
+
+def outputGraph():
+
+
+    labels = 'positive', 'neutral', 'negative'
+    values  = [sentiment_averages["positive"], sentiment_averages["neutral"], sentiment_averages["negative"]]
+    fig1 = plt.figure() 
+    values = np.asarray(values)
+    fig1, ax1 = plt.subplots()
+    ax1.pie(values, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90)
+    plt.title('Sentiment Analysis Graph')
+
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    fig1.savefig('SentimentVisuals.png')
+
+    curr_path = os.getcwd()
+    new_path = curr_path + '/SentimentVisuals.png'
+
+    my_file = {
+    'file' : (new_path, open(new_path, 'rb'), 'png')
+    }
+
+    payload={
+    "filename":"SentimentVisuals.png", 
+    "token":CONFIG["SLACK_TOKEN"], 
+    "channels":['#weworkchat'], 
+    }
+
+    r = requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
 
 CONFIG = yaml.load(file("rtmbot.conf", "r"))
 
@@ -49,11 +91,20 @@ def process_message(data):
 
     # remove any odd encoding
     text = text.encode('utf-8')
+    words = text.split()
+
 
     if "current mood?" in text:
         return display_current_mood(data.get("channel", None))
 
-
+    if "bot function?" in text:
+        outputs.append([data["channel"], "this bot analyzes sentiments in the group"])
+    for i in range(len(words)):
+        if words[i] in bad_list_array:
+            outputs.append([data["channel"], "please refrain from using sensitive words!"])
+    if "show graph?" in text:
+        outputGraph()
+        return
     # don't log the bot replies!
     if data.get("subtype", "") == "bot_message":
         return
