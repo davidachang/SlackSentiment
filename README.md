@@ -9,9 +9,9 @@ $ git clone <url>
 $ cd SlackSentiment
 ```
 
-Set up the virtual environment and config file.
+Set up the virtual environment (with python 2.7!) and config file.
 ```
-virtualenv .
+virtualenv -p /usr/bin/python2.7 .
 source bin/activate
 pip install -r requirements.txt
 cp python-rtmbot-master/rtmbot.conf.example python-rtmbot-master/rtmbot.conf
