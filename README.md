@@ -62,6 +62,8 @@ Neutral: 60.0%
 Negative: 20.0%
 ```
 
+
+
 Second,
 
 ```bot function?```
@@ -71,6 +73,8 @@ This command will display what this bot is used for such as:
 ```this bot analyzes sentiments in the group```
 
 
+
+
 Third,
 
 ```show graph?```
@@ -78,6 +82,8 @@ Third,
 This command will display current averages as mentioned above with visuals such as a pie graph.
 e.g
 
+
+[graph](example_graph.png)
 
 
 
