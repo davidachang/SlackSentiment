@@ -83,7 +83,7 @@ This command will display current averages as mentioned above with visuals such 
 e.g
 
 
-[graph](example_graph.png)
+![](example_graph.png)
 
 
 
