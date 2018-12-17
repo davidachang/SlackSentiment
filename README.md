@@ -47,6 +47,8 @@ For more detail check out the algorithm's page https://algorithmia.com/algorithm
 Currently there are three simple commands in the slack chatbox:
 
 **NOTE**: commands are case sensitive.
+
+
 **NOTE**: Slack bots can be invited to other channels and function as long as the files are running.
 
 
