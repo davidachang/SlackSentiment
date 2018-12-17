@@ -17,6 +17,16 @@ pip install -r requirements.txt
 cp python-rtmbot-master/rtmbot.conf.example python-rtmbot-master/rtmbot.conf
 ```
 
+Create a Slack Bot and get the API token here.
+```
+https://YOURWORKSPACEHERE.slack.com/apps/build/custom-integration
+```
+
+Create an Algorithmia account and get an API token here.
+```
+https://algorithmia.com/
+````
+
 Update python-rtmbot-master/rtmbot.conf with your API keys from Slack and Algorithmia.
 
 ```
