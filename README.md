@@ -44,8 +44,8 @@ The results from the analysis are in the form of:
 For more detail check out the algorithm's page https://algorithmia.com/algorithms/nlp/SocialSentimentAnalysis.
 
 ### Bot Commands
-Currently there is only a single command:
-
+Currently there are two simple commands:
+First if you type in the slack chatbox with the bot running,
 ```current mood?```
 
 This will display the current averages:
@@ -56,6 +56,12 @@ Positive: 20.0%
 Neutral: 60.0%
 Negative: 20.0%
 ```
+Secondly,
+```bot function?```
+
+This will display what this bot is sued for such as:
+
+```this bot analyzes sentiments in the group```
 
 ## Historical Analysis
 Provided in the ```historical``` directory is a script that will review the last 24 hours of your Slack channel.
@@ -80,3 +86,14 @@ $ python historical/channel_review.py -c C056STSWB
 -----------  ----------  -----------
          30          48           22
 ```
+
+
+## Automated Warnings
+When running the slack bot if a person types a sensitive or foul language in the chat box such as:
+"bloody hell" an automated message will pop up in the chat box:
+
+```please refrain from using sensitive words!```
+
+For list of all foul/senesitive keywords please refer to the ```bad_list.txt``` file in the ```python-rtmbot-master``` directory.
+These words comprehenisve list of common sensitive words compiled by Google.
+
