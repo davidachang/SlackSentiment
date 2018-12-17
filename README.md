@@ -62,7 +62,7 @@ Negative: 20.0%
 Secondly,
 ```bot function?```
 
-This will display what this bot is sued for such as:
+This will display what this bot is used for such as:
 
 ```this bot analyzes sentiments in the group```
 
