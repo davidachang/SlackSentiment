@@ -45,6 +45,8 @@ For more detail check out the algorithm's page https://algorithmia.com/algorithm
 
 ### Bot Commands
 Currently there are two simple commands:
+
+
 First if you type in the slack chatbox with the bot running,
 
 ```current mood?```
