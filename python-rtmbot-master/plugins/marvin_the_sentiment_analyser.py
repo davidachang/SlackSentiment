@@ -9,11 +9,15 @@ import os
 import requests 
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set(style="ticks", color_codes=True)
+from slackclient import SlackClient
+
+
+
 
 with open("bad_list.txt") as f:
     bad_list_array = f.read().splitlines()
 
-def outputGraph():
+def outputGraph(channel):
 
 
     labels = 'positive', 'neutral', 'negative'
@@ -39,7 +43,7 @@ def outputGraph():
     payload={
     "filename":"SentimentVisuals.png", 
     "token":CONFIG["SLACK_TOKEN"], 
-    "channels":['#fuckyouchat'], 
+    "channels":channel, 
     }
 
     r = requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
@@ -106,7 +110,7 @@ def process_message(data):
             outputs.append([data["channel"], "please refrain from using sensitive words!"])
 
     if "show graph?" in text:
-        outputGraph()
+        outputGraph(data.get("channel", None))
         return
         
     # don't log the bot replies!
