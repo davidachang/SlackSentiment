@@ -44,14 +44,16 @@ The results from the analysis are in the form of:
 For more detail check out the algorithm's page https://algorithmia.com/algorithms/nlp/SocialSentimentAnalysis.
 
 ### Bot Commands
-Currently there are two simple commands:
+Currently there are three simple commands in the slack chatbox:
+
+**NOTE**: commands are case sensitive.
 
 
-First if you type in the slack chatbox with the bot running,
+First,
 
 ```current mood?```
 
-This will display the current averages:
+This command will display the current averages:
 
 ```
 marvin BOT [7:45 PM]
@@ -59,12 +61,26 @@ Positive: 20.0%
 Neutral: 60.0%
 Negative: 20.0%
 ```
-Secondly,
+
+Second,
+
 ```bot function?```
 
-This will display what this bot is used for such as:
+This command will display what this bot is used for such as:
 
 ```this bot analyzes sentiments in the group```
+
+
+Third,
+
+```show graph?```
+
+This command will display current averages as mentioned above with visuals such as a pie graph.
+e.g
+
+
+
+
 
 ## Historical Analysis
 Provided in the ```historical``` directory is a script that will review the last 24 hours of your Slack channel.
